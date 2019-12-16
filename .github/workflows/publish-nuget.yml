@@ -1,0 +1,23 @@
+name: publish to nuget
+on:
+  push:
+    branches:
+      - master # Your default release branch
+jobs:
+  publish:
+    name: publish to nuget
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2 # This must be >= 2 to compare commits
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.100
+      - name: Publish if version is updated
+        uses: rohith/publish-nuget@v1
+        with: # All inputs are optional (details given below)
+          project_dir: src/PasswordCheck # Defaults to repository root
+          tag_format: v* # [*] gets replaced with version
+          nuget_key: ${{secrets.NUGET_API_KEY}} # nuget.org API key
