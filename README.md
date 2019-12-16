@@ -13,15 +13,14 @@ Install-Package password-check
 `BreachedPasswordService` can be set up as a singleton. It requires an `IHttpClientFactory` that can create an `HttpClient` named `hibp-range`.
 
 ```cs
-WebHost.CreateDefaultBuilder()
-    .ConfigureServices((hostContext, services) =>
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddSingleton<IBreachedPasswordService, BreachedPasswordService>();
+    services.AddHttpClient("hibp-range", client =>
     {
-        services.AddSingleton<IBreachedPasswordService, BreachedPasswordService>();
-        services.AddHttpClient("hibp-range", client =>
-        {
-            client.BaseAddress = new Uri("https://api.pwnedpasswords.com");
-        });
-    }).Build();
+        client.BaseAddress = new Uri("https://api.pwnedpasswords.com");
+    });
+}
 ```
 
 ## Use
