@@ -14,7 +14,7 @@ namespace PasswordCheck.Tests
             Host = Hosting.Host.CreateDefaultBuilder()
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddScoped<IBreachedPasswordService, BreachedPasswordService>();
+                    services.AddSingleton<IBreachedPasswordService, BreachedPasswordService>();
                     services.AddHttpClient("hibp-range", client =>
                     {
                         client.BaseAddress = new Uri("https://api.pwnedpasswords.com");
