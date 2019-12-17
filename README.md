@@ -1,6 +1,6 @@
 # password-check
 
-`IBreachedPasswordService` [checks HIBP via the range search](https://haveibeenpwned.com/API/v3#SearchingPwnedPasswordsByRange) to find number of times a password has appeared in a known breach.
+`IBreachedPasswordService` [calls the HIBP (haveibeenpwned.com) range search API](https://haveibeenpwned.com/API/v3#SearchingPwnedPasswordsByRange) and returns the number of times a password has appeared in a known data breach.
 
 ## Install 
 
