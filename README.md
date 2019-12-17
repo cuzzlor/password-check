@@ -19,7 +19,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-If you want greater control over configuring the `HttpClient` used by `BreachedPasswordService`:
+Alternatively, if you want greater control over configuring the `HttpClient` used by `BreachedPasswordService`:
 
 ```cs
 public void ConfigureServices(IServiceCollection services)
