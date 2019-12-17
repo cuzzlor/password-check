@@ -1,8 +1,7 @@
-name: publish to nuget
+name: build + test + publish
 on:
-  push:
-    branches:
-      - master
+  pull_request:
+    types: [closed]
 jobs:
   build-test-publish:
     name: publish to nuget
