@@ -23,4 +23,5 @@ jobs:
         uses: rohith/publish-nuget@v1
         with: # All inputs are optional (details given below)
           project_dir: src/PasswordCheck # Defaults to repository root
+          tag_format: v* # [*] gets replaced with version
           nuget_key: ${{secrets.NUGET_API_KEY}} # nuget.org API key
