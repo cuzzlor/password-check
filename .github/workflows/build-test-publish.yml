@@ -2,7 +2,7 @@ name: publish to nuget
 on:
   push:
     branches:
-      - master # Your default release branch
+      - master
 jobs:
   build-test-publish:
     name: publish to nuget
