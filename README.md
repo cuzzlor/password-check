@@ -10,16 +10,25 @@ Install-Package password-check
 
 ## Configure
 
-`BreachedPasswordService` can be set up as a singleton. It requires an `IHttpClientFactory` that can create an `HttpClient` named `hibp-range`.
+The simplest configuratation is to use the `AddBreachedPasswordService` extension method:
 
 ```cs
 public void ConfigureServices(IServiceCollection services)
 {
-    services.AddSingleton<IBreachedPasswordService, BreachedPasswordService>();
-    services.AddHttpClient("hibp-range", client =>
+    services.AddBreachedPasswordService();
+}
+```
+
+Or if you want greater control over the HttpClient used by `BreachedPasswordService`:
+
+```cs
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddScoped<IBreachedPasswordService, BreachedPasswordService>();
+    services.AddHttpClient<IBreachedPasswordService, BreachedPasswordService>(client =>
     {
         client.BaseAddress = new Uri("https://api.pwnedpasswords.com");
-    });
+    }).AddPolicyHandler(GetHibpHttpPolicy());
 }
 ```
 

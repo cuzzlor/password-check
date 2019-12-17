@@ -15,13 +15,16 @@ namespace PasswordCheck
 
     public class BreachedPasswordService : IBreachedPasswordService, IDisposable
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private static readonly Regex LineRegex = new Regex("\r\n|\r|\n", RegexOptions.Compiled);
+
+        private readonly HttpClient _httpClient;
         private readonly SHA1Managed _sha1Managed = new SHA1Managed();
 
-        public BreachedPasswordService(IHttpClientFactory httpClientFactory)
+        public BreachedPasswordService(HttpClient httpClient)
         {
-            _httpClientFactory = httpClientFactory;
+            _httpClient = httpClient;
         }
+
 
         public async Task<int> GetBreachCountAsync(string password)
         {
@@ -30,12 +33,11 @@ namespace PasswordCheck
             var first5 = hashString.Substring(0, 5);
             var remainder = hashString.Substring(5);
 
-            using var client = _httpClientFactory.CreateClient("hibp-range");
-            var response = await client.GetAsync($"range/{first5}");
+            var response = await _httpClient.GetAsync($"range/{first5}");
             response.EnsureSuccessStatusCode();
             var text = await response.Content.ReadAsStringAsync();
 
-            var lines = Regex.Split(text, "\r\n|\r|\n");
+            var lines = LineRegex.Split(text);
             var match = lines.FirstOrDefault(line => line.Split(':')[0].Equals(remainder));
 
             return match == null ? 0 : Convert.ToInt32(match.Split(':')[1]);
