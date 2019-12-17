@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
+using Microsoft.Extensions.Configuration;
 
 namespace PasswordCheck
 {
@@ -12,6 +13,13 @@ namespace PasswordCheck
             {
                 client.BaseAddress = new Uri("https://api.pwnedpasswords.com");
             });
+            return services;
+        }
+
+        public static IServiceCollection AddForbiddenPasswordService(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddSingleton<IForbiddenPasswordService, ForbiddenPasswordService>();
+            services.AddOptions<ForbiddenPasswordOptions>().Bind(configuration.GetSection(nameof(ForbiddenPasswordOptions)));
             return services;
         }
     }

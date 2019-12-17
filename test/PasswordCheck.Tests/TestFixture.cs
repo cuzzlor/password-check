@@ -1,7 +1,4 @@
-﻿
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using Hosting = Microsoft.Extensions.Hosting;
+﻿using Hosting = Microsoft.Extensions.Hosting;
 
 namespace PasswordCheck.Tests
 {
@@ -12,7 +9,11 @@ namespace PasswordCheck.Tests
         public TestFixture()
         {
             Host = Hosting.Host.CreateDefaultBuilder()
-                .ConfigureServices((hostContext, services) => services.AddBreachedPasswordService())
+                .ConfigureServices((hostContext, services) =>
+                {
+                    services.AddBreachedPasswordService();
+                    services.AddForbiddenPasswordService(hostContext.Configuration);
+                })
                 .Build();
         }
     }
