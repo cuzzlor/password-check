@@ -5,7 +5,7 @@
 ## Install 
 
 ```
-Install-Package password-check
+Install-Package PasswordCheck
 ```
 
 ## Configure
@@ -19,7 +19,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Or if you want greater control over the HttpClient used by `BreachedPasswordService`:
+If you want greater control over configuring the `HttpClient` used by `BreachedPasswordService`:
 
 ```cs
 public void ConfigureServices(IServiceCollection services)
