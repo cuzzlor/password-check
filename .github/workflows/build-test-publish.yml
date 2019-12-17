@@ -1,6 +1,7 @@
 name: build + test + publish
 on:
   pull_request:
+    branches: [master]
     types: [closed]
 jobs:
   build-test-publish:
