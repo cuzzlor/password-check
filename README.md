@@ -54,6 +54,14 @@ f(o|0)r(b|8)(i|1)dd(e|3)n
 
 Provide the file name via the config key `ForbiddenPasswordOptions:ForbiddenPasswordsFile`.
 
+```json
+{
+    "ForbiddenPasswordOptions": {
+        "ForbiddenPasswordsFile": "forbidden-passwords.txt"
+    }
+}
+```
+
 >Make sure you set the `CopyToOutputDirectory` attribute for the text file.
 
 ### Patterns via Configuration
